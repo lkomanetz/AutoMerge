@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace ClassLibrary {
+namespace AutoMerge {
 
     public static class AutoMerge {
 
