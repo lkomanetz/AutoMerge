@@ -3,11 +3,15 @@ using System.Reflection;
 
 namespace AutoMerge.MergeActions {
 
-	public class ValueMerge : IMergeAction {
+	public class ValueMerge : MergeAction {
 
-		public void Merge<T>(ref T destination, T source, PropertyInfo propInfo = null) where T : class, new() {
-			if (destination != source) {
-				destination = source;
+		public ValueMerge(object destination, object source, PropertyInfo info) :
+			base(destination, source, info)
+		{ }
+
+		public override void Merge() {
+			if (this.Destination != this.Source) {
+				this.Destination = this.Source;
 			}
 		}
 

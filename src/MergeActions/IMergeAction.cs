@@ -5,7 +5,11 @@ namespace AutoMerge.MergeActions {
 
 	public interface IMergeAction {
 
-		void Merge<T>(ref T destination, T source, PropertyInfo propInfo = null) where T : class, new(); 
+		object Destination { get; }
+		object Source { get; }
+		PropertyInfo PropertyInfo { get; }
+
+		void Merge(); 
 
 	}
 

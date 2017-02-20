@@ -3,9 +3,12 @@ using System.Reflection;
 
 namespace AutoMerge.MergeActions {
 
-	public class ReferenceMerge : IMergeAction {
+	public class ReferenceMerge : MergeAction {
 
-		public void Merge<T>(ref T destination, T source, PropertyInfo propInfo = null) where T : class, new() {
+		public ReferenceMerge(object destination, object source, PropertyInfo info) :
+			base(destination, source, info) {}
+
+		public override void Merge() {
 			throw new NotImplementedException();
 		}
 

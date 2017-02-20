@@ -5,7 +5,10 @@ namespace AutoMerge.MergeActions {
 
 	public class ArrayMerge : CollectionMerge {
 
-		public override void Merge<T>(ref T destination, T source, PropertyInfo propInfo = null) {
+		public ArrayMerge(object destination, object source, PropertyInfo info) :
+			base(destination, source, info) {}
+
+		public override void Merge() {
 			throw new NotImplementedException();
 		}
 
