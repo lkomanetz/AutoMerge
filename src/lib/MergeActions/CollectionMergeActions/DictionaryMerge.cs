@@ -12,9 +12,11 @@ namespace AutoMerge.MergeActions {
 		public override void Merge() {
 			TypeInfo typeInfo = this.PropertyInfo.PropertyType.GetTypeInfo();
 			typeof(DictionaryMerge).GetTypeInfo()
-				.GetMethod("MergeDictionary", BindingFlags.NonPublic)
+				.GetMethod("MergeDictionary", this.BindingFlags)
 				.MakeGenericMethod(typeInfo.GetGenericArguments())
-				.Invoke(null, new object[] { this.Destination, this.Source });
+				.Invoke(this, new object[] { this.Destination, this.Source });
+			
+			this.PropertyInfo?.SetValue(this.Destination, this.Destination);
 		}
 
 		private void MergeDictionary<TKey, TValue>(

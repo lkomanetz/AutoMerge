@@ -24,8 +24,7 @@ namespace AutoMerge {
             }
 
             if (destination == null || typeInfo.IsValueType) {
-                var action = new ValueMerge(destination, source, null);
-                action.Merge();
+                destination = source;
                 return;
             }
 
@@ -46,7 +45,7 @@ namespace AutoMerge {
                 if (propTypeInfo.IsValueType ||
                     propertyType == typeof(String)) {
 
-                    mergeActions.Add(new ValueMerge(destinationValue, sourceValue, property));
+                    mergeActions.Add(new ValueMerge(destination, sourceValue, property));
                     continue;
                 }
 
@@ -80,7 +79,6 @@ namespace AutoMerge {
 
                 if (!propTypeInfo.IsValueType && propertyType != typeof(String)) {
                     mergeActions.Add(new ReferenceMerge(destinationValue, sourceValue, property));
-                    continue;
                 }
             }
 

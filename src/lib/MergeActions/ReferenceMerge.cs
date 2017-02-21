@@ -17,7 +17,14 @@ namespace AutoMerge.MergeActions {
 		}
 
 		public override void Merge() {
-			base.Merge();
+			if (this.Source == null) {
+				return;
+			}
+
+			if (this.Destination == null) {
+				this.Destination = this.Source;
+				return;
+			}
 
 			foreach (var property in _properties) {
 				object sourceValue = property.GetValue(this.Source);
@@ -30,7 +37,7 @@ namespace AutoMerge.MergeActions {
 				TypeInfo typeInfo = propertyType.GetTypeInfo();
 
 				if (typeInfo.IsValueType || propertyType == typeof(String)) {
-					_mergeActions.Add(new ValueMerge(destinationValue, sourceValue, property));
+					_mergeActions.Add(new ValueMerge(this.Destination, sourceValue, property));
 					continue;
 				}
 
@@ -56,7 +63,6 @@ namespace AutoMerge.MergeActions {
 
 				if (!typeInfo.IsValueType && propertyType != typeof(String)) {
 					_mergeActions.Add(new ReferenceMerge(destinationValue, sourceValue, property));
-					continue;
 				}
 			}
 

@@ -9,9 +9,11 @@ namespace AutoMerge.MergeActions {
 			base(destination, source, info) {}
 
 		public override void Merge() {
+			Array tempDestination = (Array)this.Destination;
+			Array tempSource = (Array)this.Source;
 			typeof(ArrayMerge).GetTypeInfo()
-				.GetMethod("MergeArray", BindingFlags.NonPublic)
-				.Invoke(null, new object[] { this.Destination, this.Source });
+				.GetMethod("MergeArray", this.BindingFlags)
+				.Invoke(this, new object[] { tempDestination, tempSource });
 		}
 
 

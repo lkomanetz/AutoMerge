@@ -10,8 +10,12 @@ namespace AutoMerge.MergeActions {
 		{ }
 
 		public override void Merge() {
-			if (this.Destination != this.Source) {
-				this.Destination = this.Source;
+			if (this.Source == null) {
+				return;
+			}
+
+			if (this.Destination == null || this.Destination != this.Source) {
+				this.PropertyInfo?.SetValue(this.Destination, this.Source);
 			}
 		}
 

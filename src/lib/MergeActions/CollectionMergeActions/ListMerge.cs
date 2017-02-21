@@ -12,9 +12,11 @@ namespace AutoMerge.MergeActions {
 		public override void Merge() {
 			TypeInfo typeInfo = this.PropertyInfo.PropertyType.GetTypeInfo();
 			typeof(ListMerge).GetTypeInfo()
-				.GetMethod("MergeList", BindingFlags.NonPublic)
+				.GetMethod("MergeList", this.BindingFlags)
 				.MakeGenericMethod(typeInfo.GetGenericArguments())
-				.Invoke(null, new object[] { this.Destination, this.Source });
+				.Invoke(this, new object[] { this.Destination, this.Source });
+
+			this.PropertyInfo?.SetValue(this.Destination, this.Destination);
 		}
 
 		private void MergeList<T>(

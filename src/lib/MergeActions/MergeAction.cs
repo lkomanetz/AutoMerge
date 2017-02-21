@@ -5,11 +5,11 @@ using System.Reflection;
 
 namespace AutoMerge.MergeActions {
 
-	public class MergeAction : IMergeAction {
+	public abstract class MergeAction : IMergeAction {
 
 		protected IList<PropertyInfo> _properties;
 
-		public MergeAction(object source, object destination, PropertyInfo info) {
+		public MergeAction(object destination, object source, PropertyInfo info) {
 			this.Source = source;
 			this.Destination = destination;
 			this.PropertyInfo = info;
@@ -18,18 +18,10 @@ namespace AutoMerge.MergeActions {
 		}
 
 		public object Source { get; private set; }
-		public object Destination { get; internal set; }
+		public object Destination { get; protected set; }
 		public PropertyInfo PropertyInfo { get; internal set; }
 
-		public virtual void Merge() {
-			if (this.Source == null) {
-				return;
-			}
-
-			if (this.Destination == null) {
-				this.Destination = this.Source;
-			}
-		}
+		public abstract void Merge();
 
 		private void LoadPropertyList(PropertyInfo info) {
 			TypeInfo typeInfo = (info != null) ? info.PropertyType.GetTypeInfo() : this.Source.GetType().GetTypeInfo();
