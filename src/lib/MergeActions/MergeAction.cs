@@ -9,12 +9,13 @@ namespace AutoMerge.MergeActions {
 
 		protected IList<PropertyInfo> _properties;
 
-		public MergeAction(object destination, object source, PropertyInfo info) {
+		public MergeAction(object destination, object source, PropertyInfo info, Type type = null) {
 			this.Source = source;
 			this.Destination = destination;
 			this.PropertyInfo = info;
 
-			LoadPropertyList(info);
+			type = type ?? typeof(object);
+			LoadPropertyList(info, type);
 		}
 
 		public object Source { get; private set; }
@@ -23,8 +24,8 @@ namespace AutoMerge.MergeActions {
 
 		public abstract void Merge();
 
-		private void LoadPropertyList(PropertyInfo info) {
-			TypeInfo typeInfo = (info != null) ? info.PropertyType.GetTypeInfo() : this.Source.GetType().GetTypeInfo();
+		private void LoadPropertyList(PropertyInfo info, Type type) {
+			TypeInfo typeInfo = (info != null) ? info.PropertyType.GetTypeInfo() : type.GetTypeInfo();
 			_properties = typeInfo.GetProperties(
 				BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static
 			);
