@@ -1,7 +1,6 @@
-using System;
 using System.Reflection;
 
-namespace AutoMerge.MergeActions {
+namespace AutoMerger.MergeActions {
 
 	public interface IMergeAction {
 

@@ -1,6 +1,10 @@
 {
   "version": "1.0.0-*",
   "testRunner": "mstest",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true
+  },
   "dependencies": {
     "NETStandard.Library": "1.6.1",
     "dotnet-test-mstest": "1.1.1-preview",

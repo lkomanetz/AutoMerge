@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace AutoMerge.MergeActions {
+namespace AutoMerger.MergeActions {
 
 	public class ValueMerge : MergeAction {
 

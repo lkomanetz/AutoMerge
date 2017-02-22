@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutoMerge.MergeActions {
+namespace AutoMerger.MergeActions {
 
 	public abstract class MergeAction : IMergeAction {
 

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AutoMerge.MergeActions {
+namespace AutoMerger.MergeActions {
 
 	public class ReferenceMerge : MergeAction {
 
 		private IList<MergeAction> _mergeActions;
 
-		public ReferenceMerge(object destination, object source, PropertyInfo info) :
-			base(destination, source, info) {
+		public ReferenceMerge(object destination, object source, PropertyInfo info, Type type = null) :
+			base(destination, source, info, type) {
 			
 			_mergeActions = new List<MergeAction>();
 		}
@@ -62,7 +62,7 @@ namespace AutoMerge.MergeActions {
 				}
 
 				if (!typeInfo.IsValueType && propertyType != typeof(String)) {
-					_mergeActions.Add(new ReferenceMerge(destinationValue, sourceValue, property));
+					_mergeActions.Add(new ReferenceMerge(destinationValue, sourceValue, property, propertyType));
 				}
 			}
 

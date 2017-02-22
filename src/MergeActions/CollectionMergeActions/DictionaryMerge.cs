@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutoMerge.MergeActions {
+namespace AutoMerger.MergeActions {
 
 	public class DictionaryMerge : CollectionMerge {
 
@@ -15,8 +15,6 @@ namespace AutoMerge.MergeActions {
 				.GetMethod("MergeDictionary", this.BindingFlags)
 				.MakeGenericMethod(typeInfo.GetGenericArguments())
 				.Invoke(this, new object[] { this.Destination, this.Source });
-			
-			this.PropertyInfo?.SetValue(this.Destination, this.Destination);
 		}
 
 		private void MergeDictionary<TKey, TValue>(
