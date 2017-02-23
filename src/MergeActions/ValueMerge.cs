@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public class ValueMerge {
+	public class ValueMerge : MergeAction {
 
 		public ValueMerge() { }
 
-		public void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
+		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 			if (source == null) {
 				return;
 			}

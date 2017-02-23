@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -14,13 +13,13 @@ namespace AutoMerger.MergeActions {
 			LoadPropertyList(type);
 		}
 
-		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
+		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 			if (source == null) {
 				return;
 			}
 
 			if (destination == null) {
-				destination = source;
+				destination = (T)source;
 				return;
 			}
 

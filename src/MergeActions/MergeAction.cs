@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -12,7 +11,7 @@ namespace AutoMerger.MergeActions {
 
 		public MergeAction(Type type = null) { }
 
-		public abstract void Merge<T>(ref T destination, T source, PropertyInfo info = null);
+		public abstract void Merge<T>(ref T destination, object source, PropertyInfo info = null);
 
 		protected void LoadPropertyList(Type type) {
 			_properties = type.GetTypeInfo().GetProperties(propertyFlags);

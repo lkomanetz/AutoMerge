@@ -8,7 +8,7 @@ namespace AutoMerger.MergeActions {
 
 		public DictionaryMerge() {}
 
-		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
+		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 			TypeInfo typeInfo = info.PropertyType.GetTypeInfo();
 			typeof(DictionaryMerge).GetTypeInfo()
 				.GetMethod("MergeDictionary", this.BindingFlags)

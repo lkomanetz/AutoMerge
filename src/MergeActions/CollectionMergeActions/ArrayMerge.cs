@@ -7,7 +7,7 @@ namespace AutoMerger.MergeActions {
 
 		public ArrayMerge() {}
 
-		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
+		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 			typeof(ArrayMerge).GetTypeInfo()
 				.GetMethod("MergeArray", this.BindingFlags)
 				.Invoke(this, new object[] { destination, source });

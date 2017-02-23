@@ -9,7 +9,7 @@ namespace AutoMerger.MergeActions {
 
 		protected BindingFlags BindingFlags => BindingFlags.NonPublic | BindingFlags.Instance;
 
-		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {}
+		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {}
 
 	}
 
