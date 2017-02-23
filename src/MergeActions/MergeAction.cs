@@ -2,19 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AutoMerger.MergeActions {
+namespace AutoMerger {
 
-	internal abstract class MergeAction : IMergeAction {
+	namespace MergeActions {
 
-		protected IList<PropertyInfo> _properties;
-		private BindingFlags propertyFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
+		internal abstract class MergeAction : IMergeAction {
 
-		public MergeAction(Type type = null) { }
+			protected IList<PropertyInfo> _properties;
+			private BindingFlags propertyFlags =
+				BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
 
-		public abstract void Merge<T>(ref T destination, object source, PropertyInfo info = null);
+			public MergeAction(Type type = null) { }
 
-		protected void LoadPropertyList(Type type) {
-			_properties = type.GetTypeInfo().GetProperties(propertyFlags);
+			public abstract void Merge<T>(ref T destination, object source, PropertyInfo info = null);
+
+			protected void LoadPropertyList(Type type) {
+				_properties = type.GetTypeInfo().GetProperties(propertyFlags);
+			}
+
 		}
 
 	}

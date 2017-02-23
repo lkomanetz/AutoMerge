@@ -1,15 +1,19 @@
 using System;
 using System.Reflection;
 
-namespace AutoMerger.MergeActions {
+namespace AutoMerger {
 
-	internal abstract class CollectionMerge : MergeAction {
+	namespace MergeActions {
 
-		public CollectionMerge() {}
+		internal abstract class CollectionMerge : MergeAction {
 
-		protected BindingFlags BindingFlags => BindingFlags.NonPublic | BindingFlags.Instance;
+			public CollectionMerge() {}
 
-		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {}
+			protected BindingFlags BindingFlags => BindingFlags.NonPublic | BindingFlags.Instance;
+
+			public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {}
+
+		}
 
 	}
 

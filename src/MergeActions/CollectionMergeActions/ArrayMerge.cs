@@ -1,27 +1,31 @@
 using System;
 using System.Reflection;
 
-namespace AutoMerger.MergeActions {
+namespace AutoMerger {
 
-	internal class ArrayMerge : CollectionMerge {
+	namespace MergeActions {
 
-		public ArrayMerge() {}
+		internal class ArrayMerge : CollectionMerge {
 
-		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
-			typeof(ArrayMerge).GetTypeInfo()
-				.GetMethod("MergeArray", this.BindingFlags)
-				.Invoke(this, new object[] { destination, source });
-		}
+			public ArrayMerge() {}
 
-
-		private void MergeArray(Array destination, Array source) {
-			if (destination == null) {
-				destination = source;
+			public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
+				typeof(ArrayMerge).GetTypeInfo()
+					.GetMethod("MergeArray", this.BindingFlags)
+					.Invoke(this, new object[] { destination, source });
 			}
 
-			for (short i = 0; i < source.Length; ++i) {
-				destination.SetValue(source.GetValue(i), i);
+
+			private void MergeArray(Array destination, Array source) {
+				if (destination == null) {
+					destination = source;
+				}
+
+				for (short i = 0; i < source.Length; ++i) {
+					destination.SetValue(source.GetValue(i), i);
+				}
 			}
+
 		}
 
 	}

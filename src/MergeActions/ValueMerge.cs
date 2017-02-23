@@ -1,23 +1,27 @@
 using System;
 using System.Reflection;
 
-namespace AutoMerger.MergeActions {
+namespace AutoMerger {
 
-	internal class ValueMerge : MergeAction {
+	namespace MergeActions {
 
-		public ValueMerge() { }
+		internal class ValueMerge : MergeAction {
 
-		public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
-			if (source == null) {
-				return;
+			public ValueMerge() { }
+
+			public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
+				if (source == null) {
+					return;
+				}
+
+				if (info != null) {
+					info.SetValue(destination, source);
+				}
+				else {
+					destination = (T)source;
+				}
 			}
 
-			if (info != null) {
-				info.SetValue(destination, source);
-			}
-			else {
-				destination = (T)source;
-			}
 		}
 
 	}

@@ -1,10 +1,14 @@
 using System.Reflection;
 
-namespace AutoMerger.MergeActions {
+namespace AutoMerger {
 
-	public interface IMergeAction {
+	namespace MergeActions {
 
-		void Merge<T>(ref T destination, object source, PropertyInfo info = null); 
+		internal interface IMergeAction {
+
+			void Merge<T>(ref T destination, object source, PropertyInfo info = null); 
+
+		}
 
 	}
 
