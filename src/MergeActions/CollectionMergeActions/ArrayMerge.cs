@@ -5,13 +5,12 @@ namespace AutoMerger.MergeActions {
 
 	public class ArrayMerge : CollectionMerge {
 
-		public ArrayMerge(object destination, object source, PropertyInfo info) :
-			base(destination, source, info) {}
+		public ArrayMerge() {}
 
-		public override void Merge() {
+		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
 			typeof(ArrayMerge).GetTypeInfo()
 				.GetMethod("MergeArray", this.BindingFlags)
-				.Invoke(this, new object[] { this.Destination, this.Source });
+				.Invoke(this, new object[] { destination, source });
 		}
 
 

@@ -8,27 +8,14 @@ namespace AutoMerger.MergeActions {
 	public abstract class MergeAction : IMergeAction {
 
 		protected IList<PropertyInfo> _properties;
+		private BindingFlags propertyFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
 
-		public MergeAction(object destination, object source, PropertyInfo info, Type type = null) {
-			this.Source = source;
-			this.Destination = destination;
-			this.PropertyInfo = info;
+		public MergeAction(Type type = null) { }
 
-			type = type ?? typeof(object);
-			LoadPropertyList(info, type);
-		}
+		public abstract void Merge<T>(ref T destination, T source, PropertyInfo info = null);
 
-		public object Source { get; private set; }
-		public object Destination { get; protected set; }
-		public PropertyInfo PropertyInfo { get; internal set; }
-
-		public abstract void Merge();
-
-		private void LoadPropertyList(PropertyInfo info, Type type) {
-			TypeInfo typeInfo = (info != null) ? info.PropertyType.GetTypeInfo() : type.GetTypeInfo();
-			_properties = typeInfo.GetProperties(
-				BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static
-			);
+		protected void LoadPropertyList(Type type) {
+			_properties = type.GetTypeInfo().GetProperties(propertyFlags);
 		}
 
 	}

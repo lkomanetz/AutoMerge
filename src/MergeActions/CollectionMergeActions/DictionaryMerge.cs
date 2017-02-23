@@ -6,15 +6,14 @@ namespace AutoMerger.MergeActions {
 
 	public class DictionaryMerge : CollectionMerge {
 
-		public DictionaryMerge(object destination, object source, PropertyInfo info) :
-			base(destination, source, info) {}
+		public DictionaryMerge() {}
 
-		public override void Merge() {
-			TypeInfo typeInfo = this.PropertyInfo.PropertyType.GetTypeInfo();
+		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
+			TypeInfo typeInfo = info.PropertyType.GetTypeInfo();
 			typeof(DictionaryMerge).GetTypeInfo()
 				.GetMethod("MergeDictionary", this.BindingFlags)
 				.MakeGenericMethod(typeInfo.GetGenericArguments())
-				.Invoke(this, new object[] { this.Destination, this.Source });
+				.Invoke(this, new object[] { destination, source });
 		}
 
 		private void MergeDictionary<TKey, TValue>(

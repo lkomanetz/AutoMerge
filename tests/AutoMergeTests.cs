@@ -200,6 +200,7 @@ namespace ConsoleApplication {
 				$"Expected array size {countBeforeMerge}\nActual {currentObj.TestArrayOfReferences.Length}"
 			);
 		}
+
         private TestObject BuildObjectStructure() {
             return new TestObject() {
                 TestString = "TestString",

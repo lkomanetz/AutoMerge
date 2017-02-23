@@ -8,38 +8,31 @@ namespace AutoMerger.MergeActions {
 
 	public class ReferenceMerge : MergeAction {
 
-		private IList<MergeAction> _mergeActions;
-
-		public ReferenceMerge(object destination, object source, PropertyInfo info, Type type = null) :
-			base(destination, source, info, type) {
+		public ReferenceMerge(Type type = null) :
+			base(type) {
 			
-			_mergeActions = new List<MergeAction>();
+			LoadPropertyList(type);
 		}
 
-		public override void Merge() {
-			if (this.Source == null) {
+		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
+			if (source == null) {
 				return;
 			}
 
-			if (this.Destination == null) {
-				this.Destination = this.Source;
+			if (destination == null) {
+				destination = source;
 				return;
 			}
 
 			foreach (var property in _properties) {
-				object sourceValue = property.GetValue(this.Source);
+				object sourceValue = property.GetValue(source);
 				object destinationValue = null;
-				if (this.Destination != null) {
-					destinationValue = property.GetValue(this.Destination);
+				if (destination != null) {
+					destinationValue = property.GetValue(destination);
 				}
 
 				Type propertyType = property.PropertyType;
 				TypeInfo typeInfo = propertyType.GetTypeInfo();
-
-				if (typeInfo.IsValueType || propertyType == typeof(String)) {
-					_mergeActions.Add(new ValueMerge(this.Destination, sourceValue, property));
-					continue;
-				}
 
 				bool isEnumerable = typeInfo.GetInterfaces().Any(x => x == typeof(IEnumerable));
 				if (isEnumerable &&
@@ -47,28 +40,32 @@ namespace AutoMerger.MergeActions {
 					propertyType != typeof(Object)) {
 
 					if (typeInfo.IsArray) {
-						_mergeActions.Add(new ArrayMerge(destinationValue, sourceValue, property));
+						new ArrayMerge().Merge(ref destinationValue, sourceValue, property);
 						continue;
 					}
 
 					if (typeInfo.GetInterface("IDictionary`2") != null) {
-						_mergeActions.Add(new DictionaryMerge(destinationValue, sourceValue, property));
+						new DictionaryMerge().Merge(ref destinationValue, sourceValue, property);
 					}
 					else if (typeInfo.GetInterface("IList`1") != null) {
-						_mergeActions.Add(new ListMerge(destinationValue, sourceValue, property));
+						new ListMerge().Merge(ref destinationValue, sourceValue, property);
 					}
 
 					continue;
 				}
 
 				if (!typeInfo.IsValueType && propertyType != typeof(String)) {
-					_mergeActions.Add(new ReferenceMerge(destinationValue, sourceValue, property, propertyType));
+					new ReferenceMerge(propertyType).Merge(ref destinationValue, sourceValue, property);
+					property.SetValue(destination, destinationValue);
+					continue;
+				}
+
+				if (sourceValue != null) {
+					new ValueMerge().Merge(ref destination, sourceValue, property);
+					// property.SetValue(destination, sourceValue, null);
 				}
 			}
 
-			foreach (var action in _mergeActions) {
-				action.Merge();
-			}
 		}
 
 	}

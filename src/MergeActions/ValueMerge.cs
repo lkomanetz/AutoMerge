@@ -3,19 +3,20 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public class ValueMerge : MergeAction {
+	public class ValueMerge {
 
-		public ValueMerge(object destination, object source, PropertyInfo info) :
-			base(destination, source, info)
-		{ }
+		public ValueMerge() { }
 
-		public override void Merge() {
-			if (this.Source == null) {
+		public void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
+			if (source == null) {
 				return;
 			}
 
-			if (this.Destination == null || this.Destination != this.Source) {
-				this.PropertyInfo?.SetValue(this.Destination, this.Source);
+			if (info != null) {
+				info.SetValue(destination, source);
+			}
+			else {
+				destination = (T)source;
 			}
 		}
 

@@ -6,15 +6,14 @@ namespace AutoMerger.MergeActions {
 
 	public class ListMerge : CollectionMerge {
 
-		public ListMerge(object destination, object source, PropertyInfo info) :
-			base(destination, source, info) {}
+		public ListMerge() {}
 
-		public override void Merge() {
-			TypeInfo typeInfo = this.PropertyInfo.PropertyType.GetTypeInfo();
+		public override void Merge<T>(ref T destination, T source, PropertyInfo info = null) {
+			TypeInfo typeInfo = info.PropertyType.GetTypeInfo();
 			typeof(ListMerge).GetTypeInfo()
 				.GetMethod("MergeList", this.BindingFlags)
 				.MakeGenericMethod(typeInfo.GetGenericArguments())
-				.Invoke(this, new object[] { this.Destination, this.Source });
+				.Invoke(this, new object[] { destination, source });
 		}
 
 		private void MergeList<T>(
