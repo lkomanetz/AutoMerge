@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public class ListMerge : CollectionMerge {
+	internal class ListMerge : CollectionMerge {
 
 		public ListMerge() {}
 

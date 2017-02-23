@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public class DictionaryMerge : CollectionMerge {
+	internal class DictionaryMerge : CollectionMerge {
 
 		public DictionaryMerge() {}
 

@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public abstract class CollectionMerge : MergeAction {
+	internal abstract class CollectionMerge : MergeAction {
 
 		public CollectionMerge() {}
 

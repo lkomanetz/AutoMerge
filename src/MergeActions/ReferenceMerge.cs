@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public class ReferenceMerge : MergeAction {
+	internal class ReferenceMerge : MergeAction {
 
 		public ReferenceMerge(Type type = null) :
 			base(type) {

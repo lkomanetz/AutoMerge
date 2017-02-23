@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public class ArrayMerge : CollectionMerge {
+	internal class ArrayMerge : CollectionMerge {
 
 		public ArrayMerge() {}
 
