@@ -62,7 +62,6 @@ namespace AutoMerger.MergeActions {
 
 				if (sourceValue != null) {
 					new ValueMerge().Merge(ref destination, sourceValue, property);
-					// property.SetValue(destination, sourceValue, null);
 				}
 			}
 
