@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace AutoMerger.MergeActions {
 
-	public abstract class MergeAction : IMergeAction {
+	internal abstract class MergeAction : IMergeAction {
 
 		protected IList<PropertyInfo> _properties;
 		private BindingFlags propertyFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
