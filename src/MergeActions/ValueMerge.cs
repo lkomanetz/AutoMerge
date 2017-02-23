@@ -7,7 +7,7 @@ namespace AutoMerger {
 
 		internal class ValueMerge : MergeAction {
 
-			public ValueMerge() { }
+			internal ValueMerge() { }
 
 			public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 				if (source == null) {

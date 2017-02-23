@@ -7,7 +7,7 @@ namespace AutoMerger {
 
 		internal class ArrayMerge : CollectionMerge {
 
-			public ArrayMerge() {}
+			internal ArrayMerge() {}
 
 			public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 				typeof(ArrayMerge).GetTypeInfo()

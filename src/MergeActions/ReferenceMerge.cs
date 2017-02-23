@@ -9,7 +9,7 @@ namespace AutoMerger {
 
 		internal class ReferenceMerge : MergeAction {
 
-			public ReferenceMerge(Type type = null) :
+			internal ReferenceMerge(Type type = null) :
 				base(type) {
 				
 				LoadPropertyList(type);

@@ -8,7 +8,7 @@ namespace AutoMerger {
 
 		internal class DictionaryMerge : CollectionMerge {
 
-			public DictionaryMerge() {}
+			internal DictionaryMerge() {}
 
 			public override void Merge<T>(ref T destination, object source, PropertyInfo info = null) {
 				TypeInfo typeInfo = info.PropertyType.GetTypeInfo();

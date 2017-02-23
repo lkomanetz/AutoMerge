@@ -12,7 +12,7 @@ namespace AutoMerger {
 			private BindingFlags propertyFlags =
 				BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
 
-			public MergeAction(Type type = null) { }
+			internal MergeAction(Type type = null) { }
 
 			public abstract void Merge<T>(ref T destination, object source, PropertyInfo info = null);
 

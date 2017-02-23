@@ -7,7 +7,7 @@ namespace AutoMerger {
 
 		internal abstract class CollectionMerge : MergeAction {
 
-			public CollectionMerge() {}
+			internal CollectionMerge() {}
 
 			protected BindingFlags BindingFlags => BindingFlags.NonPublic | BindingFlags.Instance;
 
