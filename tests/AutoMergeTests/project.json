@@ -9,9 +9,7 @@
     "NETStandard.Library": "1.6.1",
     "dotnet-test-mstest": "1.1.1-preview",
     "MSTest.TestFramework": "1.0.1-preview",
-    "src": {
-      "target": "project"
-    }
+    "AutoMerge": "1.0.0"
   },
   "frameworks": {
     "netcoreapp1.1": {
