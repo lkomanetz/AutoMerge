@@ -1,15 +1,14 @@
 ﻿using AutoMerger;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace ConsoleApplication {
 
-    [TestClass]
     public class AutoMergeTests {
 
-        [TestMethod]
+		[Fact]
         public void AutoMerge_ChangingSimpleValuesSucceeds() {
             TestObject previousObj = BuildObjectStructure();
             TestObject currentObj = BuildObjectStructure();
@@ -25,10 +24,10 @@ namespace ConsoleApplication {
                 previousObj.TestBool == currentObj.TestBool
             );
 
-            Assert.IsTrue(isEqual, "previousObj values do not equal currentObj values.");
+            Assert.True(isEqual, "previousObj values do not equal currentObj values.");
         }
 
-        [TestMethod]
+        [Fact]
 		public void AutoMerge_ReferenceTypeChangesSucceeds()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -45,10 +44,10 @@ namespace ConsoleApplication {
 				Enumerable.SequenceEqual(previousObj.TestReference.TestCollectionOfValues, currentObj.TestReference.TestCollectionOfValues)
 			);
 
-			Assert.IsTrue(isEqual, "previousObj values do not equal currentObj values.");
+			Assert.True(isEqual, "previousObj values do not equal currentObj values.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_DestinationEnumerableIsUntouchedWhenSourceIsEmpty()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -64,13 +63,13 @@ namespace ConsoleApplication {
 				currentObj.TestArrayOfReferences.Length == arrayCountPriorToChange
 			);
 
-			Assert.IsTrue(
+			Assert.True(
 				countsAreNotChanged,
 				$"Collection count inaccurate.  Expected {countPriorToChange}\nActual {currentObj.TestCollectionOfReferences.Count}"
 			);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_NullValueIsIgnored()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -80,13 +79,13 @@ namespace ConsoleApplication {
 			AutoMerge.Merge(ref previousObj, currentObj);
 
 			int? value = previousObj.TestReference.TestNullableValue;
-			Assert.IsTrue(
+			Assert.True(
 				value != null && value.Value == 1,
 				"Nullable value type was overridden."
 			);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_CollectionMergesSuccessfully()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -94,13 +93,13 @@ namespace ConsoleApplication {
 
 			previousObj.TestReference.TestCollectionOfValues = new List<int>();
 			AutoMerge.Merge(ref previousObj, currentObj);
-			Assert.IsTrue(
+			Assert.True(
 				Enumerable.SequenceEqual(previousObj.TestReference.TestCollectionOfValues, currentObj.TestReference.TestCollectionOfValues),
 				"Collections are not equal."
 			);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_NullSourceValueSucceeds()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -109,10 +108,10 @@ namespace ConsoleApplication {
 			currentObj.TestReference = null;
 			AutoMerge.Merge(ref previousObj, currentObj);
 
-			Assert.IsTrue(previousObj.TestReference != null);
+			Assert.True(previousObj.TestReference != null);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_NullDestinationValueSucceeds()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -121,13 +120,13 @@ namespace ConsoleApplication {
 			previousObj.TestReference = null;
 			AutoMerge.Merge(ref previousObj, currentObj);
 
-			Assert.IsTrue(
+			Assert.True(
                 previousObj.TestReference != null && currentObj.TestReference != null,
                 "previousObj.TestReference is still null or not equal to currentObj.TestReference"
             );
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_CollectionOfReferencesSucceeds()
 		{
 			int? newNullableValue = 1000;
@@ -137,13 +136,13 @@ namespace ConsoleApplication {
 			currentObj.TestCollectionOfReferences[0].TestNullableValue = newNullableValue;
 			AutoMerge.Merge(ref previousObj, currentObj);
 
-			Assert.IsTrue(
+			Assert.True(
 				previousObj.TestCollectionOfReferences[0].TestNullableValue == newNullableValue,
 				$"Expected {newNullableValue}\nWas {previousObj.TestCollectionOfReferences[0].TestNullableValue}"
 			);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_ArrayOfReferencesSucceeds()
 		{
 			int? newNullableValue = 1000;
@@ -153,13 +152,13 @@ namespace ConsoleApplication {
 			previousObj.TestArrayOfReferences[0].TestNullableValue = newNullableValue;
 			AutoMerge.Merge(ref currentObj, previousObj);
 
-			Assert.IsTrue(
+			Assert.True(
 				currentObj.TestArrayOfReferences[0].TestNullableValue == newNullableValue,
 				$"Expected {newNullableValue}\nActual {currentObj.TestArrayOfReferences[0].TestNullableValue}."
 			);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_CollectionOfDifferentLengthsSucceeds()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -175,10 +174,10 @@ namespace ConsoleApplication {
 				currentObj.TestCollectionOfReferences[0].TestNullableValue == null
 			);
 
-			Assert.IsTrue(isTheSame, "TestCollectionOfReferences count is incorrect.");
+			Assert.True(isTheSame, "TestCollectionOfReferences count is incorrect.");
 		}
 
-		[TestMethod]
+		[Fact]
 		public void AutoMerge_ArrayOfDifferentLengthsSucceeds()
 		{
 			TestObject previousObj = BuildObjectStructure();
@@ -195,7 +194,7 @@ namespace ConsoleApplication {
 				currentObj.TestArrayOfReferences[0].TestNullableValue == null
 			);
 
-			Assert.IsTrue(
+			Assert.True(
 				isSuccessfulTest,
 				$"Expected array size {countBeforeMerge}\nActual {currentObj.TestArrayOfReferences.Length}"
 			);
@@ -297,6 +296,11 @@ namespace ConsoleApplication {
         public static bool operator !=(AnotherTestObject a, AnotherTestObject b) {
             return !(a == b);
         }
+
+		public override bool Equals(object a) {
+			AnotherTestObject tempA = (AnotherTestObject)a;
+			return this == tempA;
+		}
 
         public override int GetHashCode() {
             if (TestNullableValue.HasValue) {

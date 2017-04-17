@@ -1,14 +1,13 @@
 using AutoMerger;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace AutoMerger.UnitTests {
 
-	[TestClass]
 	public class DictionaryTests {
 
-		[TestMethod]
+		[Fact]
 		public void DictionaryWithValuesSucceeds() {
-			Assert.IsTrue(true);
+			Assert.True(true);
 		}
 
 	}
