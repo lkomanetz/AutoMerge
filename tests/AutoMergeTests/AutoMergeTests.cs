@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace ConsoleApplication {
+namespace AutoMerger.UnitTests {
 
     public class AutoMergeTests {
 
