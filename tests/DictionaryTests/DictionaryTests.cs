@@ -29,6 +29,7 @@ namespace AutoMerger.UnitTests {
 			AutoMerge.Merge(ref testA, testB);
 
 			foreach (var kvp in testA.PrimitiveDictionary) {
+				//TODO(Logan)-> Fix KeyNotFoundException that happens on the below line.
 				int valueB = testB.PrimitiveDictionary[kvp.Key];
 				Assert.True(kvp.Value == valueB);
 			}
