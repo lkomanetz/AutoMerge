@@ -200,6 +200,19 @@ namespace AutoMerger.UnitTests {
 			);
 		}
 
+		[Fact]
+		public void AutoMerge_ChangingSourceDoesNotChangeDestinationAfterMerge() {
+			TestObject previousObj = BuildObjectStructure();
+			TestObject currentObj = BuildObjectStructure();
+
+			previousObj.TestValue = 100;
+			AutoMerge.Merge(ref currentObj, previousObj);
+			Assert.True(currentObj.TestValue == previousObj.TestValue);
+
+			previousObj.TestValue = 500;
+			Assert.True(currentObj.TestValue != previousObj.TestValue, "TestValue is still the same when they should be different.");
+		}
+
         private TestObject BuildObjectStructure() {
             return new TestObject() {
                 TestString = "TestString",
